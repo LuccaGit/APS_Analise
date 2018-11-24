@@ -8,8 +8,8 @@ void bubbleSort(int *vet,int tamanho) {
     int aux, count = 0;
     for(int i = 0; i < tamanho; i++){
         for(int j = 0; j < tamanho; j++){
-            if(vet[i] < vet[j]){
                 count++;
+            if(vet[i] < vet[j]){
                 aux = vet[i];
                 vet[i] = vet[j];
                 vet[j] = aux;
