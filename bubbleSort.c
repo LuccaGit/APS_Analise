@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "vetor.h"
 
 void main(int argc, char *argv[]) {
 
@@ -11,7 +9,11 @@ void main(int argc, char *argv[]) {
         printf("arquivo nao encontrado \n");
         exit(0);
     }
-    
 
+    int vetor[1000], i = 0;
+    char caracter[20];
+    
+    iniciaVetor(vetor,arquivo);
+        
     fclose(arquivo);
 }

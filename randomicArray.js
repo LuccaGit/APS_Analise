@@ -14,7 +14,7 @@ const getArrayString = (array, ind) => {
 	var len = array.length;
 	for (i = 0; i < len; i++) {
 		arrayString = ( i + 1 < len) ?
-			arrayString.concat(parseInt(array[i]) + ' ') :
+			arrayString.concat(parseInt(array[i]) + '\n') :
 			arrayString.concat(parseInt(array[i]));
 	}
 	return arrayString;
