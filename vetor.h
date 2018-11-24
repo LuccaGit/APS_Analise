@@ -7,9 +7,7 @@ void iniciaVetor(int *vet, FILE *arquivo){
     char caracter[20];
     
     while (fgets(caracter, 20, arquivo) != NULL){
-        printf("caracter = %s ", caracter);
         vet[i] = atoi(caracter);
-        printf("inteiro = %d \n", vet[i]);
         i++;
     }
 }
