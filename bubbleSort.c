@@ -20,8 +20,8 @@ void bubbleSort(int *vet,int tamanho) {
     double tempoFim = (double) clock () / 1000000;
     float tempo = tempoFim - tempoIni;
 
-    printf("tempo de execucao = %f Segundos\n",tempo);
-    printf("quantidade de instrucoes = %d Instrucoes\n",count);
+    printf("Tempo de execucao = %f Segundos\n",tempo);
+    printf("Quantidade de instrucoes = %d Instrucoes\n",count);
     printf("\n---------------------------bubbleSort----------------------------------\n");
 }
 
