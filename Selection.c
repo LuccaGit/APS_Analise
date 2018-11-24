@@ -1,8 +1,6 @@
 #include "vetor.h"
 #define TAM 1000
 
-long int qtdeInteracoes;
-
 void main( int argc, char* argv[] ){
 
 int end = 1, vet[TAM], aux, i = TAM-1 , j, indiceM, count;
