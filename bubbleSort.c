@@ -24,6 +24,7 @@ void bubbleSort(int *vet,int tamanho) {
     printf("quantidade de instrucoes = %d Instrucoes\n",count);
     printf("\n---------------------------bubbleSort----------------------------------\n");
 }
+
 void main(int argc, char *argv[]) {
     FILE *arquivo;
     arquivo = fopen(argv[1], "r");
