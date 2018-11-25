@@ -153,7 +153,8 @@ int merge(int *vet, int esq, int meio, int dir) {
         k++; 
     }
     return count;
-} 
+}
+
 int countMerge = 0;
 void mergeSort(int *vet, int esq, int dir) {
     countMerge += 1;
@@ -182,6 +183,99 @@ void buildMerge(int *vet, int esq, int dir) {
     printf("Quantidade de instrucoes = %d Instrucoes\n",countMerge);
     printf("\n---------------------------SelectionSort----------------------------------\n");
 }
+
+int countHeap = 0;
+void heapify(int *vet, int n, int i) { 
+    int maior = i; // Inicializa maior como raiz 
+    int e = 2*i + 1; // esquerda = 2*i + 1 
+    int d = 2*i + 2; // direita = 2*i + 2 
+    int aux;
+    countHeap ++;
+
+    if (e < n && vet[e] > vet[maior]) {
+        maior = e; 
+    }
+
+  
+    if (d < n && vet[d] > vet[maior]) {
+        maior = d; 
+    }
+
+  
+    if (maior != i) { // troca
+        aux = vet[i];
+        vet[i] = vet[maior];
+        vet[maior] = aux;
+
+        heapify(vet, n, maior); 
+    } 
+} 
+
+void heapSort(int *vet, int n) { 
+    int aux;
+    countHeap ++;
+        
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(vet, n, i); 
+    }
+
+    
+    for (int i=n-1; i>=0; i--) { 
+        aux = vet[i];
+        vet[i] = vet[0];
+        vet[0] = aux;
+
+        heapify(vet, i, 0); 
+    } 
+} 
+
+void buildHeap(int *vet, int n){
+    printf("---------------------------HeapSort----------------------------------\n\n");
+    double tempoIni = (double) clock() / 1000000;
+
+    heapSort(vet, n); 
+    
+    double tempoFim = (double) clock () / 1000000;
+    float tempo = tempoFim - tempoIni;
+
+    printf("Tempo de execucao = %f Segundos\n",tempo);
+    printf("Quantidade de instrucoes = %d Instrucoes\n",countHeap);
+    printf("\n---------------------------HeapSort-------------------------------\n");
+
+}
+
+int countQuick = 0;
+
+int particiona (int vet[], int menor, int maior) 
+{ 
+    int pivo = vet[maior], aux;    // pivo 
+    int i = (menor - 1);  // Index of smaller element 
+  
+    for (int j = menor; j <= maior- 1; j++){ 
+        if (vet[j] <= pivo) 
+        { 
+            i++; 
+            aux = vet[i];
+            vet[i] = vet[j];
+            vet[j] = aux;
+        } 
+    } 
+    aux = vet[i + 1];
+    vet[i +1] = vet[maior];
+    vet[maior] = aux;
+    return (i + 1); 
+} 
+  
+void quickSort(int vet[], int menor, int maior){ 
+    int aux;
+    if (menor < maior){ 
+        int aux = particiona(vet, menor, maior); 
+  
+        quickSort(vet, menor, aux - 1); 
+        quickSort(vet, aux + 1, maior); 
+    } 
+} 
+
 int buscaBinaria(int *vet, int esq, int dir, int elemento) {
     if(dir >= esq) {
         int meio = esq + (dir - esq)/2;
@@ -210,7 +304,7 @@ void main(int argc, char *argv[]) {
     int vetor[TAMANHO], i = 0, count;
 
     iniciaVetor(vetor,arquivo);
-    buildMerge(vetor, 0, TAMANHO);
+    buildHeap(vetor, TAMANHO);
     // for(int i = 0; i < TAMANHO; i++) {
     //     printf("|%d|\n", vetor[i]);
     // }
