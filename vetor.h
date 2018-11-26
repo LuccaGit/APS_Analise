@@ -11,4 +11,6 @@ void iniciaVetor(int *vet, FILE *arquivo){
         vet[i] = atoi(caracter);
         i++;
     }
+
+    rewind(arquivo);
 }

@@ -33,9 +33,9 @@ void bubbleSortOtimizado(int *vet, int tamanho) {
         if(breaker == 0){
             breaker = 1;
             for(int j = 0; j < tamanho - i - 1; j++){
+                count++;
                 if(vet[j] > vet[j + 1]){
                     breaker = 0;
-                    count++;
                     aux = vet[j];
                     vet[j] = vet[j+1];
                     vet[j+1] = aux;
@@ -51,9 +51,6 @@ void bubbleSortOtimizado(int *vet, int tamanho) {
     printf("tempo de execucao = %f Segundos\n",tempo);
     printf("quantidade de instrucoes = %d Instrucoes\n",count);
     printf("------------------------bubbleSort-Otimizado-----------------------------\n\n");
-    for(int i = 0; i < TAMANHO; i++){
-        printf("|%d|\n", vet[i]);
-    }
 }
 
 void insertionSort(int *vet, int tamanho) {
@@ -104,9 +101,6 @@ void SelectionSort(int *vet, int tamanho) {
     printf("Quantidade de instrucoes = %d Instrucoes\n",count);
     printf("\n---------------------------SelectionSort----------------------------------\n");
 
-    // for(i = 0; i<TAM; i++){
-    //     printf("%d \n",vet[i]);
-    // }
 }
 
 int merge(int *vet, int esq, int meio, int dir) {
@@ -171,7 +165,7 @@ void mergeSort(int *vet, int esq, int dir) {
 
 void buildMerge(int *vet, int esq, int dir) {
 
-    printf("---------------------------SelectionSort----------------------------------\n\n");
+    printf("---------------------------MergeSort----------------------------------\n\n");
     double tempoIni = (double) clock() / 1000000;
 
     mergeSort(vet, esq, dir);
@@ -181,7 +175,7 @@ void buildMerge(int *vet, int esq, int dir) {
 
     printf("Tempo de execucao = %f Segundos\n",tempo);
     printf("Quantidade de instrucoes = %d Instrucoes\n",countMerge);
-    printf("\n---------------------------SelectionSort----------------------------------\n");
+    printf("\n---------------------------MergeSort----------------------------------\n");
 }
 
 int countHeap = 0;
@@ -245,13 +239,12 @@ void buildHeap(int *vet, int n){
 }
 
 int countQuick = 0;
-
-int particiona (int vet[], int menor, int maior) 
-{ 
+int particiona (int *vet, int menor, int maior) { 
     int pivo = vet[maior], aux;    // pivo 
     int i = (menor - 1);  // Index of smaller element 
   
-    for (int j = menor; j <= maior- 1; j++){ 
+    for (int j = menor; j <= maior- 1; j++){
+        countQuick ++;
         if (vet[j] <= pivo) 
         { 
             i++; 
@@ -266,7 +259,7 @@ int particiona (int vet[], int menor, int maior)
     return (i + 1); 
 } 
   
-void quickSort(int vet[], int menor, int maior){ 
+void quickSort(int *vet, int menor, int maior){ 
     int aux;
     if (menor < maior){ 
         int aux = particiona(vet, menor, maior); 
@@ -274,9 +267,25 @@ void quickSort(int vet[], int menor, int maior){
         quickSort(vet, menor, aux - 1); 
         quickSort(vet, aux + 1, maior); 
     } 
-} 
+}
 
+void buildQuick (int *vet, int menor, int maior) {
+    printf("---------------------------QuickSort----------------------------------\n\n");
+    double tempoIni = (double) clock() / 1000000;
+
+    quickSort(vet, menor, maior); 
+    
+    double tempoFim = (double) clock () / 1000000;
+    float tempo = tempoFim - tempoIni;
+
+    printf("Tempo de execucao = %f Segundos\n",tempo);
+    printf("Quantidade de instrucoes = %d Instrucoes\n",countQuick);
+    printf("\n---------------------------QuickSort-------------------------------\n");
+}
+
+int countBin = 0;
 int buscaBinaria(int *vet, int esq, int dir, int elemento) {
+    countBin++;
     if(dir >= esq) {
         int meio = esq + (dir - esq)/2;
         if (vet[meio] == elemento) {
@@ -293,6 +302,69 @@ int buscaBinaria(int *vet, int esq, int dir, int elemento) {
 
 }
 
+void buildBuscaBinaria(int *vet, int esq, int dir, int elemento) {
+    printf("---------------------------Busca-Binaria----------------------------------\n\n");
+    double tempoIni = (double) clock() / 1000000;
+
+    int val = buscaBinaria(vet, esq, dir, elemento); 
+    
+    double tempoFim = (double) clock () / 1000000;
+    float tempo = tempoFim - tempoIni;
+
+    printf("Tempo de execucao = %f Segundos\n",tempo);
+    printf("Quantidade de instrucoes = %d Instrucoes\n",countBin);
+    printf("Resultado da Busca = %d \n", val);
+    printf("\n---------------------------Busca-Binaria-------------------------------\n");
+}
+
+typedef struct {
+    int maxVector;
+    int ini;
+    int fim;
+} retorno;
+
+int countMax = 0;
+retorno * maxSubvetor(int *vet, int tamanho) {
+
+    retorno *ret = (retorno*) malloc(sizeof(retorno));
+    int maxVector = vet[0];
+    int max;
+    int ini = 0;
+    int fim = 0;
+    for(int i = 0; i < tamanho; i++) {
+        max = 0;
+        for(int j = i; j < tamanho; j++) {
+            max+= vet[j];
+            countMax++;
+            if(maxVector < max) {
+                maxVector = max;
+                ini = i;
+                fim = j;
+            }
+        }
+    }
+    ret->maxVector = maxVector;
+    ret->ini = ini;
+    ret->fim = fim;
+
+    return ret;
+}
+
+void buildMaxSubvetor(int *vet, int tamanho) {
+    printf("---------------------------Subvetor-Maximo----------------------------------\n\n");
+    double tempoIni = (double) clock() / 1000000;
+
+    retorno* ret = maxSubvetor(vet, tamanho); 
+    
+    double tempoFim = (double) clock () / 1000000;
+    float tempo = tempoFim - tempoIni;
+
+    printf("Tempo de execucao = %f Segundos\n",tempo);
+    printf("Quantidade de instrucoes = %d Instrucoes\n",countMax);
+    printf("max = %d, ini = %d, fim = %d \n", ret->maxVector, ret->ini, ret->fim);
+    printf("\n---------------------------Subvetor-Maximo-------------------------------\n");
+}
+
 void main(int argc, char *argv[]) {
     FILE *arquivo;
     arquivo = fopen(argv[1], "r");
@@ -301,15 +373,34 @@ void main(int argc, char *argv[]) {
         exit(0);
     }
 
-    int vetor[TAMANHO], i = 0, count;
+    int vetor1[TAMANHO], vetor2[TAMANHO], vetor3[TAMANHO], vetor4[TAMANHO], vetor5[TAMANHO], vetor6[TAMANHO], vetor7[TAMANHO], vetor8[TAMANHO], vetor9[TAMANHO];
 
-    iniciaVetor(vetor,arquivo);
-    buildHeap(vetor, TAMANHO);
-    // for(int i = 0; i < TAMANHO; i++) {
-    //     printf("|%d|\n", vetor[i]);
+    iniciaVetor(vetor1, arquivo);
+    iniciaVetor(vetor2, arquivo);
+    iniciaVetor(vetor3, arquivo);
+    iniciaVetor(vetor4, arquivo);
+    iniciaVetor(vetor5, arquivo);
+    iniciaVetor(vetor6, arquivo);
+    iniciaVetor(vetor7, arquivo);
+    iniciaVetor(vetor8, arquivo);
+    iniciaVetor(vetor9, arquivo);
+
+    // for(int i = 0; i < TAMANHO; i++){
+    //     printf("vet1 = %d \n", vetor1[i]);
+    //     printf("vet2 = %d \n", vetor2[i]);
+    //     printf("vet3 = %d \n", vetor3[i]);
     // }
-    int elemento = buscaBinaria(vetor,0 , TAMANHO-1, 986);
-    printf("elemento = %d \n", elemento);
+
+    bubbleSort(vetor1, TAMANHO);
+    bubbleSortOtimizado(vetor2, TAMANHO);
+    insertionSort(vetor3, TAMANHO);
+    SelectionSort(vetor4, TAMANHO);
+    buildMerge(vetor5, 0, TAMANHO);
+    buildHeap(vetor6, TAMANHO);
+    buildQuick (vetor7, 0, TAMANHO);
+    buildBuscaBinaria(vetor8, 0, TAMANHO, 986);
+    buildMaxSubvetor(vetor9, TAMANHO);
+    
     fclose(arquivo);
 
 }
